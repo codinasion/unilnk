@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/webhooks/", include("webhooks.urls")),
 ]
 
 # configuring path for static and media
