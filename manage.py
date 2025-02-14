@@ -2,6 +2,17 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import subprocess
+
+
+def format_code():
+    """Format code using black."""
+    try:
+        subprocess.run(["black", "."], check=True)
+        subprocess.run(["djlint", "templates/", "--reformat"], check=True)
+        print("Code formatted successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error formatting code: {e}")
 
 
 def main():
@@ -15,7 +26,10 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    execute_from_command_line(sys.argv)
+    if len(sys.argv) > 1 and sys.argv[1] == "format":
+        format_code()
+    else:
+        execute_from_command_line(sys.argv)
 
 
 if __name__ == "__main__":
