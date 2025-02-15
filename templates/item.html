@@ -31,20 +31,16 @@
                     {% for working_link in working_links %}
                         <tr class="border-b">
                             <td class="py-2 px-4">
-                                
-                                <a href={% url "link" working_link.id %}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                 class="text-blue-600 hover:underline">{{ working_link.get_domain }}</a>
+                                <a href="{% url "link" working_link.id %}"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="text-blue-600 hover:underline">{{ working_link.get_domain }}</a>
                             </td>
-                            <td class="py-2 px-4">
-                                {{ working_link.get_total_clicks|intcomma }}
-                            </td>
+                            <td class="py-2 px-4">{{ working_link.get_total_clicks|intcomma }}</td>
                             <td class="py-2 px-4">
                                 {% include "partials/report/active.html" with link=working_link %}
                                 {% include "partials/report/broken.html" with link=working_link %}
-                            
-                        </td>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -52,72 +48,68 @@
         </div>
     {% endif %}
     {% if not_verified_links %}
-    <!-- Not Verified Links Section -->
-    <div class="bg-white p-6 shadow-md rounded-lg mb-6">
-        <h3 class="text-xl font-semibold mb-4">Contributed Links</h3>
-        <table class="min-w-full bg-white shadow-md rounded-lg">
-            <thead class="bg-yellow-200">
-                <tr>
-                    <th class="py-2 px-4 text-left">Link</th>
-                    <th class="py-2 px-4 text-left">Clicks</th>
-                    <th class="py-2 px-4 text-left">Report</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for not_verified_link in not_verified_links %}
-                    <tr class="border-b">
-                        <td class="py-2 px-4">
-                            <a href={% url "link" not_verified_link.id %}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                             class="text-gray-600 hover:underline">{{ not_verified_link.get_domain }}</a>
-                        </td>
-                        <td class="py-2 px-4">
-                            {{ not_verified_link.get_total_clicks|intcomma }}
-                        </td>
-                        <td class="py-2 px-4">
-                            {% include "partials/report/active.html" with link=not_verified_link %}
-                            {% include "partials/report/broken.html" with link=not_verified_link %}
-                        </td>
+        <!-- Not Verified Links Section -->
+        <div class="bg-white p-6 shadow-md rounded-lg mb-6">
+            <h3 class="text-xl font-semibold mb-4">Contributed Links</h3>
+            <table class="min-w-full bg-white shadow-md rounded-lg">
+                <thead class="bg-yellow-200">
+                    <tr>
+                        <th class="py-2 px-4 text-left">Link</th>
+                        <th class="py-2 px-4 text-left">Clicks</th>
+                        <th class="py-2 px-4 text-left">Report</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    {% for not_verified_link in not_verified_links %}
+                        <tr class="border-b">
+                            <td class="py-2 px-4">
+                                <a href="{% url "link" not_verified_link.id %}"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="text-gray-600 hover:underline">{{ not_verified_link.get_domain }}</a>
+                            </td>
+                            <td class="py-2 px-4">{{ not_verified_link.get_total_clicks|intcomma }}</td>
+                            <td class="py-2 px-4">
+                                {% include "partials/report/active.html" with link=not_verified_link %}
+                                {% include "partials/report/broken.html" with link=not_verified_link %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endif %}
     {% if not_working_links %}
-    <!-- Not Working Links Section -->
-    <div class="bg-white p-6 shadow-md rounded-lg mb-6">
-        <h3 class="text-xl font-semibold mb-4">Broken Links</h3>
-        <table class="min-w-full bg-white shadow-md rounded-lg">
-            <thead class="bg-red-200">
-                <tr>
-                    <th class="py-2 px-4 text-left">Link</th>
-                    <th class="py-2 px-4 text-left">Clicks</th>
-                    <th class="py-2 px-4 text-left">Report</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for not_working_link in not_working_links %}
-                    <tr class="border-b">
-                        <td class="py-2 px-4">
-                            <a href={% url "link" not_working_link.id %}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                             class="text-gray-500 line-through">{{ not_working_link.get_domain }}</a>
-                        </td>
-                        <td class="py-2 px-4">
-                            {{ not_working_link.get_total_clicks|intcomma }}
-                        </td>
-                        <td class="py-2 px-4">
-                            {% include "partials/report/active.html" with link=not_working_link %}
-                            {% include "partials/report/broken.html" with link=not_working_link %}
-                        </td>
+        <!-- Not Working Links Section -->
+        <div class="bg-white p-6 shadow-md rounded-lg mb-6">
+            <h3 class="text-xl font-semibold mb-4">Broken Links</h3>
+            <table class="min-w-full bg-white shadow-md rounded-lg">
+                <thead class="bg-red-200">
+                    <tr>
+                        <th class="py-2 px-4 text-left">Link</th>
+                        <th class="py-2 px-4 text-left">Clicks</th>
+                        <th class="py-2 px-4 text-left">Report</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    {% for not_working_link in not_working_links %}
+                        <tr class="border-b">
+                            <td class="py-2 px-4">
+                                <a href="{% url "link" not_working_link.id %}"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="text-gray-500 line-through">{{ not_working_link.get_domain }}</a>
+                            </td>
+                            <td class="py-2 px-4">{{ not_working_link.get_total_clicks|intcomma }}</td>
+                            <td class="py-2 px-4">
+                                {% include "partials/report/active.html" with link=not_working_link %}
+                                {% include "partials/report/broken.html" with link=not_working_link %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endif %}
     <!-- User Contributions Section -->
     <div class="bg-white p-6 shadow-md rounded-lg">

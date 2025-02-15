@@ -6,7 +6,7 @@ from .views import (
     CategoryItemsView,
     ItemView,
     NewItemView,
-    LinkView
+    LinkView,
 )
 
 urlpatterns = [

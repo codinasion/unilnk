@@ -9,20 +9,14 @@
     </thead>
     <tbody>
         {% for item in items %}
-        <tr class="border-b">
-            <td class="py-2 px-4">
-                <a href="{% url 'item' item.slug %}"
-                   class="text-blue-600 hover:underline">
-                {{ item.title }}
-                </a>
-            </td>
-            <td class="py-2 px-4">
-                {{ item.category }}
-            </td>
-            <td class="py-2 px-4">
-                {{ item.get_total_clicks|intcomma }}
-            </td>
-        </tr>
+            <tr class="border-b">
+                <td class="py-2 px-4">
+                    <a href="{% url 'item' item.slug %}"
+                       class="text-blue-600 hover:underline">{{ item.title }}</a>
+                </td>
+                <td class="py-2 px-4">{{ item.category }}</td>
+                <td class="py-2 px-4">{{ item.get_total_clicks|intcomma }}</td>
+            </tr>
         {% endfor %}
     </tbody>
 </table>

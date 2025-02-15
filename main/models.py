@@ -38,17 +38,14 @@ class ItemModel(models.Model):
         if not self.slug:
             self.slug = slugify(f"{self.title} {self.category}")
         super().save(*args, **kwargs)
-    
+
     def get_total_clicks(self):
-        return sum(
-            [link.get_total_clicks() for link in self.linkmodel_set.all()]
-        )
+        return sum([link.get_total_clicks() for link in self.linkmodel_set.all()])
 
     class Meta:
         unique_together = ("slug", "category")
         verbose_name = "Item"
         verbose_name_plural = "Items"
-
 
 
 class LinkModel(models.Model):
@@ -81,7 +78,7 @@ class LinkModel(models.Model):
 
     def get_total_clicks(self):
         return self.linkclickmodel_set.count()
-    
+
     def get_domain(self):
         return self.url.split("//")[-1].split("/")[0]
 
