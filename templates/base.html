@@ -10,13 +10,16 @@
             {% endblock title %}
             - UNILNK
         </title>
-        <meta name="description" content="Aggregating working links from the internet to save your time.">
+        <meta name="description"
+              content="Aggregating working links from the internet to save your time.">
         <!-- Favicon -->
         <link rel="icon"
               type="image/png"
               href="{% static 'favicon/favicon-96x96.png' %}"
               sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="{% static 'favicon/favicon.svg' %}" />
+        <link rel="icon"
+              type="image/svg+xml"
+              href="{% static 'favicon/favicon.svg' %}" />
         <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />
         <link rel="apple-touch-icon"
               sizes="180x180"
@@ -30,17 +33,30 @@
         <div class="container mx-auto p-6">
             <!-- Navbar -->
             <nav class="bg-white shadow-md p-4 flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-bold">UNILNK</h1>
+                <div class="flex items-center">
+                    <img src="{% static 'logo-transparent.png' %}"
+                         alt="UNILNK Logo"
+                         class="h-8 mr-2">
+                    <h1 class="text-2xl font-bold">UNILNK</h1>
+                </div>
                 <div class="flex space-x-4">
                     <a href="#" class="text-blue-600 hover:underline">Categories</a>
                     <span class="text-blue-600 cursor-pointer">🔍</span>
                 </div>
             </nav>
-            
+            {% block content %}
+            {% endblock content %}
+            <!-- Disclaimer -->
+            <div class="bg-gray-200 p-4 mt-6 rounded-lg text-sm text-gray-700">
+                <p>
+                    <strong>Disclaimer:</strong> UNILNK does not manage, host, or upload any copyrighted material. This website solely provides links to third-party websites. We are not responsible for any content, harm, or issues that may arise from using these links.
+                </p>
+            </div>
             <!-- Footer -->
             <footer class="bg-white text-center p-4 shadow-md mt-6">
                 <p>
-                    Made with ❤️ by <a href="https://github.com/codinasion" class="text-blue-600 hover:underline">Codinasion</a>
+                    Made with ❤️ by <a href="https://github.com/codinasion"
+    class="text-blue-600 hover:underline">Codinasion</a>
                 </p>
             </footer>
         </div>
