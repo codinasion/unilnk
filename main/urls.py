@@ -10,6 +10,7 @@ from .views import (
     SubmitLinkView,
     ReportLinkWorkingView,  # Add this import
     ReportLinkBrokenView,  # Add this import
+    ReportLinkSpamView
 )
 
 urlpatterns = [
@@ -24,7 +25,8 @@ urlpatterns = [
     path("item/<slug:item_slug>/", ItemView.as_view(), name="item"),
     path("new-item/", NewItemView.as_view(), name="new_item"),
     path("link/<int:link_id>/", LinkView.as_view(), name="link"),
-    path("submit-link/", SubmitLinkView.as_view(), name="submit_link"),
-    path("report-link-working/<int:link_id>/", ReportLinkWorkingView.as_view(), name="report_link_working"),
-    path("report-link-broken/<int:link_id>/", ReportLinkBrokenView.as_view(), name="report_link_broken"),
+    path("link/", SubmitLinkView.as_view(), name="submit_link"),
+    path("link/working/<int:link_id>/", ReportLinkWorkingView.as_view(), name="report_link_working"),
+    path("link/broken/<int:link_id>/", ReportLinkBrokenView.as_view(), name="report_link_broken"),
+    path("link/spam/<int:link_id>/", ReportLinkSpamView.as_view(), name="report_link_spam")
 ]

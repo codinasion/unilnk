@@ -1,0 +1,10 @@
+<form action="{% url 'report_link_spam' link.id %}" method="post" onsubmit="return confirmSpamSubmission()">
+    {% csrf_token %}
+    <button title="Report this link if it is spam."
+            class="mx-2 border border-red-500 text-red-500 px-4 py-1 rounded hover:bg-red-100">Spam - {{ link.spam_count }}</button>
+</form>
+<script>
+    function confirmSpamSubmission() {
+        return confirm("Are you sure you want to report this link as spam?");
+    }
+</script>

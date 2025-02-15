@@ -1,9 +1,12 @@
 from django.contrib import admin
 from django.contrib.sessions.models import Session
-from .models import CategoryModel, ItemModel, LinkModel, LinkClickModel
+from .models import CategoryModel, ItemModel, LinkModel, LinkClickModel, LinkActionModel
 
 
-admin.site.register(Session)
+@admin.register(Session)
+class SessionAdmin(admin.ModelAdmin):
+    fields = ("session_key", "session_data", "expire_date")
+    readonly_fields = ("session_key", "session_data", "expire_date")
 
 
 @admin.register(CategoryModel)
@@ -41,6 +44,7 @@ class LinkModelAdmin(admin.ModelAdmin):
         "status",
         "get_working_count",
         "get_not_working_count",
+        "get_spam_count",
         "get_total_clicks",
     )
     search_fields = ("url",)
@@ -48,14 +52,19 @@ class LinkModelAdmin(admin.ModelAdmin):
     fields = ("item", "url", "status")
 
     def get_working_count(self, obj):
-        return obj.working_count
+        return obj.working_count()
 
     get_working_count.short_description = "Working"
 
     def get_not_working_count(self, obj):
-        return obj.not_working_count
+        return obj.not_working_count()
 
     get_not_working_count.short_description = "Not Working"
+
+    def get_spam_count(self, obj):
+        return obj.spam_count()
+    
+    get_spam_count.short_description = "Spam"
 
     def get_total_clicks(self, obj):
         return obj.get_total_clicks()
@@ -63,9 +72,19 @@ class LinkModelAdmin(admin.ModelAdmin):
     get_total_clicks.short_description = "Clicks"
 
 
+@admin.register(LinkActionModel)
+class LinkActionModelAdmin(admin.ModelAdmin):
+    list_display = ("id", "link", "action", "created_at")
+    search_fields = ("link", "action")
+    list_filter = ("action", "created_at")
+    fields = ("link", "action", "created_at")
+    readonly_fields = ("link", "action", "created_at")
+
+
 @admin.register(LinkClickModel)
 class LinkClickModelAdmin(admin.ModelAdmin):
     list_display = ("id", "link", "created_at")
     search_fields = ("link",)
     list_filter = ("created_at",)
-    fields = ("link",)
+    fields = ("link", "created_at")
+    readonly_fields = ("link", "created_at")

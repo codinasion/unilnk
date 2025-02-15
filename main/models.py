@@ -61,20 +61,19 @@ class LinkModel(models.Model):
     status = models.CharField(
         max_length=255, choices=STATUS_CHOICES, default="not_verified"
     )
-    working_count = models.PositiveIntegerField(default=0)
-    not_working_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.url
 
-    def increase_working_count(self):
-        self.working_count += 1
-        self.save()
+    def working_count(self):
+        return self.linkactionmodel_set.filter(action="working").count()
 
-    def increase_not_working_count(self):
-        self.not_working_count += 1
-        self.save()
+    def not_working_count(self):
+        return self.linkactionmodel_set.filter(action="not_working").count()
+    
+    def spam_count(self):
+        return self.linkactionmodel_set.filter(action="spam").count()
 
     def get_total_clicks(self):
         return self.linkclickmodel_set.count()
@@ -85,6 +84,23 @@ class LinkModel(models.Model):
     class Meta:
         verbose_name = "Link"
         verbose_name_plural = "Links"
+
+
+class LinkActionModel(models.Model):
+    ACTION_CHOICES = (
+        ("working", "Working"),
+        ("not_working", "Not Working"),
+        ("spam", "Spam"),
+    )
+
+    link = models.ForeignKey(LinkModel, on_delete=models.CASCADE)
+    action = models.CharField(max_length=255, choices=ACTION_CHOICES)
+    ip_address = models.GenericIPAddressField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Link Action"
+        verbose_name_plural = "Link Actions"
 
 
 class LinkClickModel(models.Model):

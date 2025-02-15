@@ -5,7 +5,8 @@ from django.views import View
 from django.db.models import Count
 from django.core.paginator import Paginator
 from django.http import HttpResponseBadRequest
-from .models import CategoryModel, ItemModel, LinkModel, LinkClickModel
+from .utils import get_client_ip
+from .models import CategoryModel, ItemModel, LinkModel, LinkClickModel, LinkActionModel
 
 
 class HomeView(View):
@@ -53,9 +54,13 @@ class CategoryItemsView(View):
         category = CategoryModel.objects.get(slug=category_slug)
         items = ItemModel.objects.filter(category__slug=category_slug)
         paginator = Paginator(items, 10)  # Show 10 items per page
-        page_number = request.GET.get('page')
+        page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
-        return render(request, "category-items.html", {"items": page_obj, "category": category, "page_obj": page_obj})
+        return render(
+            request,
+            "category-items.html",
+            {"items": page_obj, "category": category, "page_obj": page_obj},
+        )
 
 
 class SearchView(View):
@@ -63,7 +68,7 @@ class SearchView(View):
         query = request.GET.get("q")
         items = ItemModel.objects.filter(title__icontains=query) if query else []
         paginator = Paginator(items, 10)  # Show 10 items per page
-        page_number = request.GET.get('page')
+        page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
         return render(request, "search.html", {"items": page_obj})
 
@@ -71,9 +76,15 @@ class SearchView(View):
 class ItemView(View):
     def get(self, request, item_slug):
         item = ItemModel.objects.get(slug=item_slug)
-        working_links = item.linkmodel_set.filter(status="working")
-        not_verified_links = item.linkmodel_set.filter(status="not_verified")
-        not_working_links = item.linkmodel_set.filter(status="not_working")
+        working_links = item.linkmodel_set.filter(status="working").annotate(
+            total_clicks=Count("linkclickmodel")
+        ).order_by("-total_clicks")
+        not_verified_links = item.linkmodel_set.filter(status="not_verified").annotate(
+            total_clicks=Count("linkclickmodel")
+        ).order_by("-total_clicks")
+        not_working_links = item.linkmodel_set.filter(status="not_working").annotate(
+            total_clicks=Count("linkclickmodel")
+        ).order_by("-total_clicks")
         return render(
             request,
             "item.html",
@@ -108,21 +119,37 @@ class SubmitLinkView(View):
         item_id = request.POST.get("item_id")
         if not url or not item_id:
             return HttpResponseBadRequest("URL and Item ID are required")
-        
+
         item = ItemModel.objects.get(id=item_id)
-        LinkModel.objects.create(item=item, url=url)
+        LinkModel.objects.get_or_create(url=url, item=item)
         return redirect("item", item.slug)
 
 
 class ReportLinkWorkingView(View):
     def post(self, request, link_id):
-        link = LinkModel.objects.get(id=link_id)
-        link.increase_working_count()
-        return redirect(request.META.get('HTTP_REFERER', 'home'))
+        ip_address = get_client_ip(request)
+        link = get_object_or_404(LinkModel, id=link_id)
+        LinkActionModel.objects.get_or_create(
+            link=link, ip_address=ip_address, action="working"
+        )
+        return redirect(request.META.get("HTTP_REFERER", "home"))
 
 
 class ReportLinkBrokenView(View):
     def post(self, request, link_id):
+        ip_address = get_client_ip(request)
         link = get_object_or_404(LinkModel, id=link_id)
-        link.increase_not_working_count()
-        return redirect(request.META.get('HTTP_REFERER', 'home'))
+        LinkActionModel.objects.get_or_create(
+            link=link, ip_address=ip_address, action="not_working"
+        )
+        return redirect(request.META.get("HTTP_REFERER", "home"))
+
+
+class ReportLinkSpamView(View):
+    def post(self, request, link_id):
+        ip_address = get_client_ip(request)
+        link = get_object_or_404(LinkModel, id=link_id)
+        LinkActionModel.objects.get_or_create(
+            link=link, ip_address=ip_address, action="spam"
+        )
+        return redirect(request.META.get("HTTP_REFERER", "home"))

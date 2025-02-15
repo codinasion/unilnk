@@ -40,6 +40,7 @@
                             <td class="py-2 px-4 flex justify-center">
                                 {% include "partials/report/active.html" with link=working_link %}
                                 {% include "partials/report/broken.html" with link=working_link %}
+                                {% include "partials/report/spam.html" with link=working_link %}
                             </td>
                         </tr>
                     {% endfor %}
@@ -72,6 +73,7 @@
                             <td class="py-2 px-4 flex justify-center">
                                 {% include "partials/report/active.html" with link=not_verified_link %}
                                 {% include "partials/report/broken.html" with link=not_verified_link %}
+                                {% include "partials/report/spam.html" with link=not_verified_link %}
                             </td>
                         </tr>
                     {% endfor %}
@@ -104,6 +106,7 @@
                             <td class="py-2 px-4 flex justify-center">
                                 {% include "partials/report/active.html" with link=not_working_link %}
                                 {% include "partials/report/broken.html" with link=not_working_link %}
+                                {% include "partials/report/spam.html" with link=not_working_link %}
                             </td>
                         </tr>
                     {% endfor %}
