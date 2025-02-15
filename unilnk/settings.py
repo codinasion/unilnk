@@ -64,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "main.middleware.CustomSessionMiddleware",  # Custom session middleware
 ]
 
 ROOT_URLCONF = "unilnk.urls"
@@ -154,5 +155,5 @@ else:
     GITHUB_WEBHOOK_SECRET = "3B6YkG0WHe2pjABJIzDZrqKPjILN0OAQmNeffEt7Jb55juAndL"
 
 # Session settings
-SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Use database sessions
-SESSION_COOKIE_AGE = 900  # Sessions expire after 15 minutes
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+SESSION_SAVE_EVERY_REQUEST = True

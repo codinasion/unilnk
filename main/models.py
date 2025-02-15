@@ -80,7 +80,7 @@ class LinkModel(models.Model):
         return self.linkclickmodel_set.count()
 
     def get_domain(self):
-        return self.url.split("//")[-1].split("/")[0]
+        return ".".join(self.url.split(".")[-2:])
 
     class Meta:
         verbose_name = "Link"

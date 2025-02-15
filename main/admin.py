@@ -1,5 +1,9 @@
 from django.contrib import admin
+from django.contrib.sessions.models import Session
 from .models import CategoryModel, ItemModel, LinkModel, LinkClickModel
+
+
+admin.site.register(Session)
 
 
 @admin.register(CategoryModel)
