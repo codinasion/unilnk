@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",  # Django REST Framework
     "webhooks.apps.WebhooksConfig",  # Webhooks app
+    "main.apps.MainConfig",
 ]
 
 MIDDLEWARE = [
@@ -150,3 +151,7 @@ if env("ENV_MODE") == "PRODUCTION":
     GITHUB_WEBHOOK_SECRET = env("GITHUB_WEBHOOK_SECRET")
 else:
     GITHUB_WEBHOOK_SECRET = "3B6YkG0WHe2pjABJIzDZrqKPjILN0OAQmNeffEt7Jb55juAndL"
+
+# Session settings
+SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Use database sessions
+SESSION_COOKIE_AGE = 900  # Sessions expire after 15 minutes
