@@ -51,7 +51,7 @@ class CategoryItemsView(View):
     def get(self, request, category_slug):
         category = CategoryModel.objects.get(slug=category_slug)
         items = ItemModel.objects.filter(category__slug=category_slug)
-        paginator = Paginator(items, 1)  # Show 10 items per page
+        paginator = Paginator(items, 10)  # Show 10 items per page
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         return render(request, "category-items.html", {"items": page_obj, "category": category, "page_obj": page_obj})
@@ -61,7 +61,7 @@ class SearchView(View):
     def get(self, request):
         query = request.GET.get("q")
         items = ItemModel.objects.filter(title__icontains=query) if query else []
-        paginator = Paginator(items, 1)  # Show 10 items per page
+        paginator = Paginator(items, 10)  # Show 10 items per page
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         return render(request, "search.html", {"items": page_obj})
