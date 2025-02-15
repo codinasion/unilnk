@@ -50,8 +50,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",  # humanize
     "rest_framework",  # Django REST Framework
     "webhooks.apps.WebhooksConfig",  # Webhooks app
+    "main.apps.MainConfig",
 ]
 
 MIDDLEWARE = [
@@ -62,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "main.middleware.CustomSessionMiddleware",  # Custom session middleware
 ]
 
 ROOT_URLCONF = "unilnk.urls"
@@ -79,6 +82,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "main.context_processors.active_users",  # Add this line
             ],
         },
     },
@@ -150,3 +154,7 @@ if env("ENV_MODE") == "PRODUCTION":
     GITHUB_WEBHOOK_SECRET = env("GITHUB_WEBHOOK_SECRET")
 else:
     GITHUB_WEBHOOK_SECRET = "3B6YkG0WHe2pjABJIzDZrqKPjILN0OAQmNeffEt7Jb55juAndL"
+
+# Session settings
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+SESSION_SAVE_EVERY_REQUEST = True

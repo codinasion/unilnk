@@ -3,54 +3,26 @@
     Search | {{ block.super }}
 {% endblock title %}
 {% block content %}
-    <!-- Search Bar -->
     <div class="bg-white p-6 shadow-md rounded-lg mb-6">
-        <h2 class="text-2xl font-semibold mb-4">Search for Links</h2>
-        <div class="flex items-center border rounded-lg overflow-hidden">
+        <h2 class="text-2xl font-semibold mb-4">Search</h2>
+        <form method="GET"
+              action="{% url 'search' %}"
+              class="flex items-center border rounded-lg overflow-hidden">
             <input type="text"
+                   name="q"
                    placeholder="Enter search term..."
+                   value="{{ request.GET.q }}"
                    class="w-full p-3 border-none outline-none">
-            <button class="bg-blue-500 text-white px-6 py-3">Search</button>
-        </div>
+            <button type="submit" class="bg-blue-500 text-white px-6 py-3">Search</button>
+        </form>
     </div>
-    <!-- Search Results -->
     <div class="bg-white p-6 shadow-md rounded-lg">
         <h3 class="text-xl font-semibold mb-4">Search Results</h3>
-        <table class="min-w-full bg-white shadow-md rounded-lg">
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="py-2 px-4 text-left">Name</th>
-                    <th class="py-2 px-4 text-left">Category</th>
-                    <th class="py-2 px-4 text-left">Added Date</th>
-                    <th class="py-2 px-4 text-left">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="border-b">
-                    <td class="py-2 px-4">Example Item 1</td>
-                    <td class="py-2 px-4">E-books</td>
-                    <td class="py-2 px-4">Feb 10, 2025</td>
-                    <td class="py-2 px-4">
-                        <a href="#" class="text-blue-600 underline">View</a>
-                    </td>
-                </tr>
-                <tr class="border-b">
-                    <td class="py-2 px-4">Example Item 2</td>
-                    <td class="py-2 px-4">Software</td>
-                    <td class="py-2 px-4">Feb 12, 2025</td>
-                    <td class="py-2 px-4">
-                        <a href="#" class="text-blue-600 underline">View</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <!-- Pagination -->
-        <div class="flex justify-center mt-4">
-            <button class="border border-gray-500 text-gray-500 px-4 py-2 mx-1 rounded hover:bg-gray-200">Previous</button>
-            <button class="border border-blue-500 text-blue-500 px-4 py-2 mx-1 rounded hover:bg-blue-100">1</button>
-            <button class="border border-blue-500 text-blue-500 px-4 py-2 mx-1 rounded hover:bg-blue-100">2</button>
-            <button class="border border-blue-500 text-blue-500 px-4 py-2 mx-1 rounded hover:bg-blue-100">3</button>
-            <button class="border border-gray-500 text-gray-500 px-4 py-2 mx-1 rounded hover:bg-gray-200">Next</button>
-        </div>
+        {% if items %}
+            {% include "partials/item/table.html" with items=items %}
+            {% include "partials/item/pagination.html" with items=items %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
     </div>
 {% endblock content %}

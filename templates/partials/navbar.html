@@ -1,0 +1,15 @@
+{% load static %}
+<nav class="bg-white shadow-md p-4 flex justify-between items-center mb-6">
+    <a href="{% url 'home' %}">
+        <div class="flex items-center">
+            <img src="{% static 'logo-transparent.png' %}"
+                 alt="UNILNK Logo"
+                 class="h-8 mr-2">
+            <h1 class="text-2xl font-bold">UNILNK</h1>
+        </div>
+    </a>
+    <div class="flex space-x-4">
+        <a href="{% url 'categories' %}" class="text-blue-600 hover:underline">Categories</a>
+        <a href="{% url 'search' %}" class="text-blue-600 cursor-pointer">🔍</a>
+    </div>
+</nav>
