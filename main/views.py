@@ -18,3 +18,7 @@ class CategoryItemsView(View):
 class SearchView(View):
     def get(self, request):
         return render(request, "search.html")
+    
+class ItemView(View):
+    def get(self, request, item_slug):
+        return render(request, "item.html")
