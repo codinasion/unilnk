@@ -1,13 +1,11 @@
 from datetime import timedelta
 from django.utils import timezone
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.db.models import Count
 from django.core.paginator import Paginator
 from django.http import HttpResponseBadRequest
 from .models import CategoryModel, ItemModel, LinkModel, LinkClickModel
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 
 
 class HomeView(View):
@@ -117,8 +115,14 @@ class SubmitLinkView(View):
 
 
 class ReportLinkWorkingView(View):
-    @method_decorator(csrf_exempt)
     def post(self, request, link_id):
         link = LinkModel.objects.get(id=link_id)
         link.increase_working_count()
+        return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
+class ReportLinkBrokenView(View):
+    def post(self, request, link_id):
+        link = get_object_or_404(LinkModel, id=link_id)
+        link.increase_not_working_count()
         return redirect(request.META.get('HTTP_REFERER', 'home'))
