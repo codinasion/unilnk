@@ -7,6 +7,7 @@ from .views import (
     ItemView,
     NewItemView,
     LinkView,
+    SubmitLinkView,  # Add this import
 )
 
 urlpatterns = [
@@ -21,4 +22,5 @@ urlpatterns = [
     path("item/<slug:item_slug>/", ItemView.as_view(), name="item"),
     path("new-item/", NewItemView.as_view(), name="new_item"),
     path("link/<int:link_id>/", LinkView.as_view(), name="link"),
+    path("submit-link/", SubmitLinkView.as_view(), name="submit_link"),
 ]

@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Count
 from django.core.paginator import Paginator
+from django.http import HttpResponseBadRequest
 from .models import CategoryModel, ItemModel, LinkModel, LinkClickModel
 
 
@@ -99,3 +100,15 @@ class LinkView(View):
 
         # Redirect to the link
         return redirect(link.url)
+
+
+class SubmitLinkView(View):
+    def post(self, request):
+        url = request.POST.get("url")
+        item_id = request.POST.get("item_id")
+        if not url or not item_id:
+            return HttpResponseBadRequest("URL and Item ID are required")
+        
+        item = ItemModel.objects.get(id=item_id)
+        LinkModel.objects.create(item=item, url=url)
+        return redirect("item", item.slug)
