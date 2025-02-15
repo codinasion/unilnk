@@ -33,13 +33,19 @@ class ItemModel(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f"{self.id} {self.title}")
+            self.slug = slugify(f"{self.title} {self.category}")
         super().save(*args, **kwargs)
+    
+    def get_total_clicks(self):
+        return sum(
+            [link.get_total_clicks() for link in self.linkmodel_set.all()]
+        )
 
     class Meta:
         unique_together = ("slug", "category")
         verbose_name = "Item"
         verbose_name_plural = "Items"
+
 
 
 class LinkModel(models.Model):
@@ -71,17 +77,17 @@ class LinkModel(models.Model):
         self.save()
 
     def get_total_clicks(self):
-        return self.clickmodel_set.count()
+        return self.linkclickmodel_set.count()
 
     class Meta:
         verbose_name = "Link"
         verbose_name_plural = "Links"
 
 
-class ClickModel(models.Model):
+class LinkClickModel(models.Model):
     link = models.ForeignKey(LinkModel, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "Click"
-        verbose_name_plural = "Clicks"
+        verbose_name = "Link Click"
+        verbose_name_plural = "Link Clicks"

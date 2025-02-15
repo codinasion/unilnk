@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CategoryModel, ItemModel, LinkModel, ClickModel
+from .models import CategoryModel, ItemModel, LinkModel, LinkClickModel
 
 
 @admin.register(CategoryModel)
@@ -11,10 +11,21 @@ class CategoryModelAdmin(admin.ModelAdmin):
 
 @admin.register(ItemModel)
 class ItemModelAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "slug", "category")
+    list_display = (
+        "id",
+        "title",
+        "slug",
+        "category",
+        "get_total_clicks",
+    )
     search_fields = ("title",)
     list_filter = ("category",)
     fields = ("title", "category")
+
+    def get_total_clicks(self, obj):
+        return obj.get_total_clicks()
+
+    get_total_clicks.short_description = "Clicks"
 
 
 @admin.register(LinkModel)
@@ -43,13 +54,13 @@ class LinkModelAdmin(admin.ModelAdmin):
     get_not_working_count.short_description = "Not Working"
 
     def get_total_clicks(self, obj):
-        return obj.clickmodel_set.count()
+        return obj.get_total_clicks()
 
     get_total_clicks.short_description = "Clicks"
 
 
-@admin.register(ClickModel)
-class ClickModelAdmin(admin.ModelAdmin):
+@admin.register(LinkClickModel)
+class LinkClickModelAdmin(admin.ModelAdmin):
     list_display = ("id", "link", "created_at")
     search_fields = ("link",)
     list_filter = ("created_at",)

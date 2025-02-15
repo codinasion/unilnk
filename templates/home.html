@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load humanize %}
 {% block title %}
     {{ block.super }}
 {% endblock title %}
@@ -21,19 +22,22 @@
                 </tr>
             </thead>
             <tbody>
+                {% for trending_item in trending_items %}
                 <tr class="border-b">
                     <td class="py-2 px-4">
-                        <a href="{% url 'item' 'random-slug' %}"
-                           class="text-blue-600 hover:underline">Example Link 1</a>
+                        <a href="{% url 'item' trending_item.slug %}"
+                           class="text-blue-600 hover:underline">
+                        {{ trending_item.title }}
+                        </a>
                     </td>
-                    <td class="py-2 px-4">Books</td>
-                    <td class="py-2 px-4">1200</td>
+                    <td class="py-2 px-4">
+                        {{ trending_item.category }}
+                    </td>
+                    <td class="py-2 px-4">
+                        {{ trending_item.get_total_clicks|intcomma }}
+                    </td>
                 </tr>
-                <tr class="border-b">
-                    <td class="py-2 px-4">Example Link 2</td>
-                    <td class="py-2 px-4">Movies</td>
-                    <td class="py-2 px-4">950</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -49,16 +53,22 @@
                 </tr>
             </thead>
             <tbody>
+                {% for popular_item in popular_items %}
                 <tr class="border-b">
-                    <td class="py-2 px-4">Example Link 3</td>
-                    <td class="py-2 px-4">Software</td>
-                    <td class="py-2 px-4">1800</td>
+                    <td class="py-2 px-4">
+                        <a href="{% url 'item' popular_item.slug %}"
+                           class="text-blue-600 hover:underline">
+                        {{ popular_item.title }}
+                        </a>
+                    </td>
+                    <td class="py-2 px-4">
+                        {{ popular_item.category }}
+                    </td>
+                    <td class="py-2 px-4">
+                        {{ popular_item.get_total_clicks|intcomma }}
+                    </td>
                 </tr>
-                <tr class="border-b">
-                    <td class="py-2 px-4">Example Link 4</td>
-                    <td class="py-2 px-4">Music</td>
-                    <td class="py-2 px-4">1600</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -70,20 +80,26 @@
                 <tr>
                     <th class="py-2 px-4 text-left">Name</th>
                     <th class="py-2 px-4 text-left">Category</th>
-                    <th class="py-2 px-4 text-left">Date Added</th>
+                    <th class="py-2 px-4 text-left">Added</th>
                 </tr>
             </thead>
             <tbody>
+                {% for recent_item in recent_items %}
                 <tr class="border-b">
-                    <td class="py-2 px-4">Example Link 5</td>
-                    <td class="py-2 px-4">Games</td>
-                    <td class="py-2 px-4">2025-02-15</td>
+                    <td class="py-2 px-4">
+                        <a href="{% url 'item' recent_item.slug %}"
+                           class="text-blue-600 hover:underline">
+                        {{ recent_item.title }}
+                        </a>
+                    </td>
+                    <td class="py-2 px-4">
+                        {{ recent_item.category }}
+                    </td>
+                    <td class="py-2 px-4">
+                        {{ recent_item.created_at|naturalday|title }}
+                    </td>
                 </tr>
-                <tr class="border-b">
-                    <td class="py-2 px-4">Example Link 6</td>
-                    <td class="py-2 px-4">Courses</td>
-                    <td class="py-2 px-4">2025-02-14</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
