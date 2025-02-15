@@ -22,3 +22,7 @@ class SearchView(View):
 class ItemView(View):
     def get(self, request, item_slug):
         return render(request, "item.html")
+    
+class NewItemView(View):
+    def get(self, request):
+        return render(request, "new-item.html")
