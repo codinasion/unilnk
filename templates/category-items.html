@@ -8,10 +8,8 @@
     <div class="bg-white p-6 shadow-md rounded-lg">
         <h2 class="text-2xl font-semibold mb-4">{{ category.title }}</h2>
         {% if items %}
-        {% include "partials/item/table.html" with items=items %}
-        {% include "partials/item/pagination.html" with items=items %}
-            
-            
+            {% include "partials/item/table.html" with items=items %}
+            {% include "partials/item/pagination.html" with items=items %}
         {% else %}
             <p>No results found.</p>
         {% endif %}

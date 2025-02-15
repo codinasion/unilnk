@@ -71,7 +71,7 @@ class LinkModel(models.Model):
 
     def not_working_count(self):
         return self.linkactionmodel_set.filter(action="not_working").count()
-    
+
     def spam_count(self):
         return self.linkactionmodel_set.filter(action="spam").count()
 

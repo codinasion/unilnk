@@ -63,7 +63,7 @@ class LinkModelAdmin(admin.ModelAdmin):
 
     def get_spam_count(self, obj):
         return obj.spam_count()
-    
+
     get_spam_count.short_description = "Spam"
 
     def get_total_clicks(self, obj):

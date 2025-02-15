@@ -76,15 +76,21 @@ class SearchView(View):
 class ItemView(View):
     def get(self, request, item_slug):
         item = ItemModel.objects.get(slug=item_slug)
-        working_links = item.linkmodel_set.filter(status="working").annotate(
-            total_clicks=Count("linkclickmodel")
-        ).order_by("-total_clicks")
-        not_verified_links = item.linkmodel_set.filter(status="not_verified").annotate(
-            total_clicks=Count("linkclickmodel")
-        ).order_by("-total_clicks")
-        not_working_links = item.linkmodel_set.filter(status="not_working").annotate(
-            total_clicks=Count("linkclickmodel")
-        ).order_by("-total_clicks")
+        working_links = (
+            item.linkmodel_set.filter(status="working")
+            .annotate(total_clicks=Count("linkclickmodel"))
+            .order_by("-total_clicks")
+        )
+        not_verified_links = (
+            item.linkmodel_set.filter(status="not_verified")
+            .annotate(total_clicks=Count("linkclickmodel"))
+            .order_by("-total_clicks")
+        )
+        not_working_links = (
+            item.linkmodel_set.filter(status="not_working")
+            .annotate(total_clicks=Count("linkclickmodel"))
+            .order_by("-total_clicks")
+        )
         return render(
             request,
             "item.html",

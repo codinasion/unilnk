@@ -1,7 +1,11 @@
-<form action="{% url 'report_link_broken' link.id %}" method="post" onsubmit="return confirmBrokenSubmission()">
+<form action="{% url 'report_link_broken' link.id %}"
+      method="post"
+      onsubmit="return confirmBrokenSubmission()">
     {% csrf_token %}
     <button title="Report this link if it is broken."
-            class="mx-2 border border-orange-500 text-orange-500 px-4 py-1 rounded hover:bg-orange-100">Broken - {{ link.not_working_count }}</button>
+            class="mx-2 border border-orange-500 text-orange-500 px-4 py-1 rounded hover:bg-orange-100">
+        Broken - {{ link.not_working_count }}
+    </button>
 </form>
 <script>
     function confirmBrokenSubmission() {

@@ -9,4 +9,8 @@ class ServerUpdateAdmin(admin.ModelAdmin):
     search_fields = ("server_update_time", "server_update_status")
     ordering = ("-server_update_time",)
     fields = ("server_update_time", "server_update_status", "server_update_error")
-    readonly_fields = ("server_update_time", "server_update_status", "server_update_error")
+    readonly_fields = (
+        "server_update_time",
+        "server_update_status",
+        "server_update_error",
+    )
