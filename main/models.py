@@ -6,13 +6,14 @@ class CategoryModel(models.Model):
     id = models.AutoField(primary_key=True)
     slug = models.SlugField(max_length=255, unique=True)
     title = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.id + self.title)
+            self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     class Meta:
@@ -25,13 +26,14 @@ class ItemModel(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     title = models.CharField(max_length=255)
     category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.id + self.title)
+            self.slug = slugify(f"{self.id} {self.title}")
         super().save(*args, **kwargs)
 
     class Meta:
@@ -55,7 +57,7 @@ class LinkModel(models.Model):
     )
     working_count = models.PositiveIntegerField(default=0)
     not_working_count = models.PositiveIntegerField(default=0)
-    click_count = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.url
@@ -68,13 +70,18 @@ class LinkModel(models.Model):
         self.not_working_count += 1
         self.save()
 
-    def increase_click_count(self):
-        self.click_count += 1
-        self.save()
-
-    def get_domain(self):
-        return self.url.split("/")[2]
+    def get_total_clicks(self):
+        return self.clickmodel_set.count()
 
     class Meta:
         verbose_name = "Link"
         verbose_name_plural = "Links"
+
+
+class ClickModel(models.Model):
+    link = models.ForeignKey(LinkModel, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Click"
+        verbose_name_plural = "Clicks"
