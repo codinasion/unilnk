@@ -1,6 +1,6 @@
 from datetime import timedelta
 from django.utils import timezone
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Count
 from .models import CategoryModel, ItemModel, LinkModel, LinkClickModel
@@ -78,3 +78,14 @@ class ItemView(View):
 class NewItemView(View):
     def get(self, request):
         return render(request, "new-item.html")
+
+
+class LinkView(View):
+    def get(self, request, link_id):
+        # Update link click count
+        link = LinkModel.objects.get(id=link_id)
+        link_click = LinkClickModel(link=link)
+        link_click.save()
+
+        # Redirect to the link
+        return redirect(link.url)

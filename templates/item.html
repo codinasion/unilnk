@@ -18,7 +18,7 @@
     {% if working_links %}
         <!-- Working Links Section -->
         <div class="bg-white p-6 shadow-md rounded-lg mb-6">
-            <h3 class="text-xl font-semibold mb-4">Working Links</h3>
+            <h3 class="text-xl font-semibold mb-4">Active Links</h3>
             <table class="min-w-full bg-white shadow-md rounded-lg">
                 <thead class="bg-green-200">
                     <tr>
@@ -31,9 +31,15 @@
                     {% for working_link in working_links %}
                         <tr class="border-b">
                             <td class="py-2 px-4">
-                                <a href="#" class="text-blue-600 hover:underline">{{ working_link.get_domain }}</a>
+                                
+                                <a href={% url "link" working_link.id %}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                 class="text-blue-600 hover:underline">{{ working_link.get_domain }}</a>
                             </td>
-                            <td class="py-2 px-4">320</td>
+                            <td class="py-2 px-4">
+                                {{ working_link.get_total_clicks|intcomma }}
+                            </td>
                             <td class="py-2 px-4">
                                 <button class="border border-green-500 text-green-500 px-4 py-1 rounded hover:bg-green-100">Working - 5</button>
                             <button class="border border-red-500 text-red-500 px-4 py-1 rounded hover:bg-red-100">Not Working - 100</button>
@@ -60,9 +66,14 @@
                 {% for not_verified_link in not_verified_links %}
                     <tr class="border-b">
                         <td class="py-2 px-4">
-                            <a href="#" class="text-blue-600 hover:underline">{{ not_verified_link.get_domain }}</a>
+                            <a href={% url "link" not_verified_link.id %}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                             class="text-gray-600 hover:underline">{{ not_verified_link.get_domain }}</a>
                         </td>
-                        <td class="py-2 px-4">180</td>
+                        <td class="py-2 px-4">
+                            {{ not_verified_link.get_total_clicks|intcomma }}
+                        </td>
                         <td class="py-2 px-4">
                             <button class="border border-green-500 text-green-500 px-4 py-1 rounded hover:bg-green-100">Working - 5</button>
                             <button class="border border-red-500 text-red-500 px-4 py-1 rounded hover:bg-red-100">Not Working - 100</button>
@@ -76,7 +87,7 @@
     {% if not_working_links %}
     <!-- Not Working Links Section -->
     <div class="bg-white p-6 shadow-md rounded-lg mb-6">
-        <h3 class="text-xl font-semibold mb-4">Not Working Links</h3>
+        <h3 class="text-xl font-semibold mb-4">Broken Links</h3>
         <table class="min-w-full bg-white shadow-md rounded-lg">
             <thead class="bg-red-200">
                 <tr>
@@ -89,9 +100,14 @@
                 {% for not_working_link in not_working_links %}
                     <tr class="border-b">
                         <td class="py-2 px-4">
-                            <a href="#" class="text-gray-500 line-through">{{ not_working_link.get_domain }}</a>
+                            <a href={% url "link" not_working_link.id %}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                             class="text-gray-500 line-through">{{ not_working_link.get_domain }}</a>
                         </td>
-                        <td class="py-2 px-4">50</td>
+                        <td class="py-2 px-4">
+                            {{ not_working_link.get_total_clicks|intcomma }}
+                        </td>
                         <td class="py-2 px-4">
                             <button class="border border-green-500 text-green-500 px-4 py-1 rounded hover:bg-green-100">Working - 5</button>
                             <button class="border border-red-500 text-red-500 px-4 py-1 rounded hover:bg-red-100">Not Working - 100</button>

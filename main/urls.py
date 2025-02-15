@@ -6,6 +6,7 @@ from .views import (
     CategoryItemsView,
     ItemView,
     NewItemView,
+    LinkView
 )
 
 urlpatterns = [
@@ -19,4 +20,5 @@ urlpatterns = [
     ),
     path("item/<slug:item_slug>/", ItemView.as_view(), name="item"),
     path("new-item/", NewItemView.as_view(), name="new_item"),
+    path("link/<int:link_id>/", LinkView.as_view(), name="link"),
 ]
