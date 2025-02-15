@@ -10,3 +10,7 @@ class HomeView(View):
 class CategoriesView(View):
     def get(self, request):
         return render(request, "categories.html")
+    
+class SearchView(View):
+    def get(self, request):
+        return render(request, "search.html")

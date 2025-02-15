@@ -44,7 +44,7 @@
                     <a 
                     href="{% url 'categories' %}"
                      class="text-blue-600 hover:underline">Categories</a>
-                    <span class="text-blue-600 cursor-pointer">🔍</span>
+                    <a href="{% url 'search' %}" class="text-blue-600 cursor-pointer">🔍</a>
                 </div>
             </nav>
             {% block content %}
