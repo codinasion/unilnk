@@ -23,8 +23,8 @@
                 <thead class="bg-green-200">
                     <tr>
                         <th class="py-2 px-4 text-left">Link</th>
-                        <th class="py-2 px-4 text-left">Clicks</th>
-                        <th class="py-2 px-4 text-left">Report</th>
+                        <th class="py-2 px-4 text-center">Clicks</th>
+                        <th class="py-2 px-4 text-center">Report</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,8 +36,8 @@
                                    rel="noopener noreferrer"
                                    class="text-blue-600 hover:underline">{{ working_link.get_domain }}</a>
                             </td>
-                            <td class="py-2 px-4">{{ working_link.get_total_clicks|intcomma }}</td>
-                            <td class="py-2 px-4">
+                            <td class="py-2 px-4 text-center">{{ working_link.get_total_clicks|intcomma }}</td>
+                            <td class="py-2 px-4 flex justify-center">
                                 {% include "partials/report/active.html" with link=working_link %}
                                 {% include "partials/report/broken.html" with link=working_link %}
                             </td>
@@ -55,8 +55,8 @@
                 <thead class="bg-yellow-200">
                     <tr>
                         <th class="py-2 px-4 text-left">Link</th>
-                        <th class="py-2 px-4 text-left">Clicks</th>
-                        <th class="py-2 px-4 text-left">Report</th>
+                        <th class="py-2 px-4 text-center">Clicks</th>
+                        <th class="py-2 px-4 text-center">Report</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,8 +68,8 @@
                                    rel="noopener noreferrer"
                                    class="text-gray-600 hover:underline">{{ not_verified_link.get_domain }}</a>
                             </td>
-                            <td class="py-2 px-4">{{ not_verified_link.get_total_clicks|intcomma }}</td>
-                            <td class="py-2 px-4">
+                            <td class="py-2 px-4 text-center">{{ not_verified_link.get_total_clicks|intcomma }}</td>
+                            <td class="py-2 px-4 flex justify-center">
                                 {% include "partials/report/active.html" with link=not_verified_link %}
                                 {% include "partials/report/broken.html" with link=not_verified_link %}
                             </td>
@@ -87,8 +87,8 @@
                 <thead class="bg-red-200">
                     <tr>
                         <th class="py-2 px-4 text-left">Link</th>
-                        <th class="py-2 px-4 text-left">Clicks</th>
-                        <th class="py-2 px-4 text-left">Report</th>
+                        <th class="py-2 px-4 text-center">Clicks</th>
+                        <th class="py-2 px-4 text-center">Report</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,8 +100,8 @@
                                    rel="noopener noreferrer"
                                    class="text-gray-500 line-through">{{ not_working_link.get_domain }}</a>
                             </td>
-                            <td class="py-2 px-4">{{ not_working_link.get_total_clicks|intcomma }}</td>
-                            <td class="py-2 px-4">
+                            <td class="py-2 px-4 text-center">{{ not_working_link.get_total_clicks|intcomma }}</td>
+                            <td class="py-2 px-4 flex justify-center">
                                 {% include "partials/report/active.html" with link=not_working_link %}
                                 {% include "partials/report/broken.html" with link=not_working_link %}
                             </td>
