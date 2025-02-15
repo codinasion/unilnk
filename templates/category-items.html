@@ -8,26 +8,10 @@
     <div class="bg-white p-6 shadow-md rounded-lg">
         <h2 class="text-2xl font-semibold mb-4">{{ category.title }}</h2>
         {% if items %}
-            {% include "partials/item/table.html" with items=items %}
-            <!-- Pagination -->
-            <div class="flex justify-center mt-4">
-                {% if items.has_previous %}
-                    <a href="?q={{ request.GET.q }}&page={{ items.previous_page_number }}"
-                       class="border border-gray-500 text-gray-500 px-4 py-2 mx-1 rounded hover:bg-gray-200">Previous</a>
-                {% endif %}
-                {% for num in items.paginator.page_range %}
-                    {% if items.number == num %}
-                        <span class="border border-blue-500 text-white bg-blue-500 px-4 py-2 mx-1 rounded">{{ num }}</span>
-                    {% else %}
-                        <a href="?q={{ request.GET.q }}&page={{ num }}"
-                           class="border border-blue-500 text-blue-500 px-4 py-2 mx-1 rounded hover:bg-blue-100">{{ num }}</a>
-                    {% endif %}
-                {% endfor %}
-                {% if items.has_next %}
-                    <a href="?q={{ request.GET.q }}&page={{ items.next_page_number }}"
-                       class="border border-gray-500 text-gray-500 px-4 py-2 mx-1 rounded hover:bg-gray-200">Next</a>
-                {% endif %}
-            </div>
+        {% include "partials/item/table.html" with items=items %}
+        {% include "partials/item/pagination.html" with items=items %}
+            
+            
         {% else %}
             <p>No results found.</p>
         {% endif %}
