@@ -13,7 +13,7 @@ urlpatterns = [
     path("categories/", CategoriesView.as_view(), name="categories"),
     path("search/", SearchView.as_view(), name="search"),
     path(
-        "category/<str:category_str>/",
+        "category/<slug:category_slug>/",
         CategoryItemsView.as_view(),
         name="category_items",
     ),

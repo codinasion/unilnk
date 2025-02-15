@@ -47,8 +47,9 @@ class CategoriesView(View):
 
 
 class CategoryItemsView(View):
-    def get(self, request, category_str):
-        return render(request, "category-items.html")
+    def get(self, request, category_slug):
+        items = ItemModel.objects.filter(category__slug=category_slug)
+        return render(request, "category-items.html", {"items": items})
 
 
 class SearchView(View):

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load humanize %}
 {% block title %}
     Category Items - {{ block.super }}
 {% endblock title %}
@@ -10,26 +11,21 @@
             <thead class="bg-gray-200">
                 <tr>
                     <th class="py-2 px-4 text-left">Name</th>
-                    <th class="py-2 px-4 text-left">Date Added</th>
+                    <th class="py-2 px-4 text-left">Category</th>
                     <th class="py-2 px-4 text-left">Clicks</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-b">
-                    <td class="py-2 px-4">Book 1</td>
-                    <td class="py-2 px-4">2025-02-10</td>
-                    <td class="py-2 px-4">450</td>
-                </tr>
-                <tr class="border-b">
-                    <td class="py-2 px-4">Book 2</td>
-                    <td class="py-2 px-4">2025-02-12</td>
-                    <td class="py-2 px-4">320</td>
-                </tr>
-                <tr class="border-b">
-                    <td class="py-2 px-4">Book 3</td>
-                    <td class="py-2 px-4">2025-02-14</td>
-                    <td class="py-2 px-4">290</td>
-                </tr>
+                {% for item in items %}
+                    <tr class="border-b">
+                        <td class="py-2 px-4">
+                            <a href="{% url 'item' item.slug %}"
+                               class="text-blue-500 hover:underline">{{ item.title }}</a>
+                        </td>
+                        <td class="py-2 px-4">{{ item.category }}</td>
+                        <td class="py-2 px-4">{{ item.get_total_clicks|intcomma }}</td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
