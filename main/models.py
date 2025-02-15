@@ -16,6 +16,9 @@ class CategoryModel(models.Model):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
+    def get_total_items(self):
+        return self.itemmodel_set.count()
+
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
