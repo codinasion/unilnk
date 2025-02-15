@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}
+                UNILNK
+            {% endblock title %}
+        </title>
+        <meta name="description"
+              content="Aggregating working links from the internet to save your time.">
+        <!-- Favicon -->
+        <link rel="icon"
+              type="image/png"
+              href="{% static 'favicon/favicon-96x96.png' %}"
+              sizes="96x96" />
+        <link rel="icon"
+              type="image/svg+xml"
+              href="{% static 'favicon/favicon.svg' %}" />
+        <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />
+        <link rel="apple-touch-icon"
+              sizes="180x180"
+              href="{% static 'favicon/apple-touch-icon.png' %}" />
+        <meta name="apple-mobile-web-app-title" content="UNILNK" />
+        <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}" />
+        <!-- Tailwind CSS -->
+        <script src="{% static 'tailwind-3.4.16.js' %}"></script>
+    </head>
+    <body class="bg-gray-100 text-gray-900">
+        <div class="container mx-auto p-6">
+            <!-- Navbar -->
+            <nav class="bg-white shadow-md p-4 flex justify-between items-center mb-6">
+                <a href="{% url 'home' %}">
+                    <div class="flex items-center">
+                        <img src="{% static 'logo-transparent.png' %}"
+                             alt="UNILNK Logo"
+                             class="h-8 mr-2">
+                        <h1 class="text-2xl font-bold">UNILNK</h1>
+                    </div>
+                </a>
+                <div class="flex space-x-4">
+                    <a href="{% url 'categories' %}" class="text-blue-600 hover:underline">Categories</a>
+                    <a href="{% url 'search' %}" class="text-blue-600 cursor-pointer">🔍</a>
+                </div>
+            </nav>
+            {% block content %}
+            {% endblock content %}
+            <!-- Disclaimer -->
+            <div class="bg-gray-200 p-4 mt-6 rounded-lg text-sm text-gray-700">
+                <p>
+                    <strong>Disclaimer:</strong> UNILNK does not manage, host, or upload any copyrighted material. This website solely provides links to third-party websites. We are not responsible for any content, harm, or issues that may arise from using these links.
+                </p>
+            </div>
+            <!-- Footer -->
+            <footer class="bg-white text-center p-4 shadow-md mt-6">
+                <p>
+                    Made with ❤️ by <a href="https://github.com/codinasion"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="text-blue-600 hover:underline">Codinasion</a>
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>

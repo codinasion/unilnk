@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ block.super }}
+{% endblock title %}
+{% block content %}
+    <!-- Hero Section -->
+    <div class="bg-blue-600 text-white text-center p-10 rounded-lg mb-6">
+        <h1 class="text-4xl font-bold">Find the Best Links for What You Need</h1>
+        <p class="mt-2">Aggregating working links from the internet to save your time.</p>
+    </div>
+    <!-- Responsive Table Section -->
+    <div class="mb-6 overflow-x-auto">
+        <h2 class="text-2xl font-semibold mb-4">Trending Now</h2>
+        <p class="text-sm text-gray-600 mb-4">The most clicked links in the past 24 hours.</p>
+        <table class="min-w-full bg-white shadow-md rounded-lg">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="py-2 px-4 text-left">Name</th>
+                    <th class="py-2 px-4 text-left">Category</th>
+                    <th class="py-2 px-4 text-left">Clicks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b">
+                    <td class="py-2 px-4">
+                        <a href="{% url 'item' 'random-slug' %}"
+                           class="text-blue-600 hover:underline">Example Link 1</a>
+                    </td>
+                    <td class="py-2 px-4">Books</td>
+                    <td class="py-2 px-4">1200</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="py-2 px-4">Example Link 2</td>
+                    <td class="py-2 px-4">Movies</td>
+                    <td class="py-2 px-4">950</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mb-6 overflow-x-auto">
+        <h2 class="text-2xl font-semibold mb-4">Most Popular</h2>
+        <p class="text-sm text-gray-600 mb-4">The most clicked links of all time.</p>
+        <table class="min-w-full bg-white shadow-md rounded-lg">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="py-2 px-4 text-left">Name</th>
+                    <th class="py-2 px-4 text-left">Category</th>
+                    <th class="py-2 px-4 text-left">Clicks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b">
+                    <td class="py-2 px-4">Example Link 3</td>
+                    <td class="py-2 px-4">Software</td>
+                    <td class="py-2 px-4">1800</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="py-2 px-4">Example Link 4</td>
+                    <td class="py-2 px-4">Music</td>
+                    <td class="py-2 px-4">1600</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mb-6 overflow-x-auto">
+        <h2 class="text-2xl font-semibold mb-4">Newly Added</h2>
+        <p class="text-sm text-gray-600 mb-4">The most recently added links.</p>
+        <table class="min-w-full bg-white shadow-md rounded-lg">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="py-2 px-4 text-left">Name</th>
+                    <th class="py-2 px-4 text-left">Category</th>
+                    <th class="py-2 px-4 text-left">Date Added</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b">
+                    <td class="py-2 px-4">Example Link 5</td>
+                    <td class="py-2 px-4">Games</td>
+                    <td class="py-2 px-4">2025-02-15</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="py-2 px-4">Example Link 6</td>
+                    <td class="py-2 px-4">Courses</td>
+                    <td class="py-2 px-4">2025-02-14</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
