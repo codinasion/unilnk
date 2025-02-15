@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}
+                Base Template
+            {% endblock title %}
+            - UNILNK
+        </title>
+        <meta name="description" content="Aggregating working links from the internet to save your time.">
+        <!-- Favicon -->
+        <link rel="icon"
+              type="image/png"
+              href="{% static 'favicon/favicon-96x96.png' %}"
+              sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="{% static 'favicon/favicon.svg' %}" />
+        <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />
+        <link rel="apple-touch-icon"
+              sizes="180x180"
+              href="{% static 'favicon/apple-touch-icon.png' %}" />
+        <meta name="apple-mobile-web-app-title" content="UNILNK" />
+        <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}" />
+        <!-- Tailwind CSS -->
+        <script src="{% static 'tailwind-3.4.16.js' %}"></script>
+    </head>
+    <body class="bg-gray-100 text-gray-900">
+        <div class="container mx-auto p-6">
+            <!-- Navbar -->
+            <nav class="bg-white shadow-md p-4 flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">UNILNK</h1>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-blue-600 hover:underline">Categories</a>
+                    <span class="text-blue-600 cursor-pointer">🔍</span>
+                </div>
+            </nav>
+            
+            <!-- Footer -->
+            <footer class="bg-white text-center p-4 shadow-md mt-6">
+                <p>
+                    Made with ❤️ by <a href="https://github.com/codinasion" class="text-blue-600 hover:underline">Codinasion</a>
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>
