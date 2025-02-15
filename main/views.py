@@ -59,7 +59,20 @@ class SearchView(View):
 
 class ItemView(View):
     def get(self, request, item_slug):
-        return render(request, "item.html")
+        item = ItemModel.objects.get(slug=item_slug)
+        working_links = item.linkmodel_set.filter(status="working")
+        not_verified_links = item.linkmodel_set.filter(status="not_verified")
+        not_working_links = item.linkmodel_set.filter(status="not_working")
+        return render(
+            request,
+            "item.html",
+            {
+                "item": item,
+                "working_links": working_links,
+                "not_verified_links": not_verified_links,
+                "not_working_links": not_working_links,
+            },
+        )
 
 
 class NewItemView(View):

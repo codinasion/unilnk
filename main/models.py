@@ -81,6 +81,9 @@ class LinkModel(models.Model):
 
     def get_total_clicks(self):
         return self.linkclickmodel_set.count()
+    
+    def get_domain(self):
+        return self.url.split("//")[-1].split("/")[0]
 
     class Meta:
         verbose_name = "Link"
