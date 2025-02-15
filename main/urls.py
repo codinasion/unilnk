@@ -8,8 +8,8 @@ from .views import (
     NewItemView,
     LinkView,
     SubmitLinkView,
-    ReportLinkWorkingView,  # Add this import
-    ReportLinkBrokenView,  # Add this import
+    ReportLinkWorkingView,
+    ReportLinkBrokenView,
     ReportLinkSpamView,
 )
 

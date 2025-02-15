@@ -5,7 +5,6 @@
     {{ item.title }} | {{ block.super }}
 {% endblock title %}
 {% block content %}
-    <!-- Item Details Section -->
     <div class="bg-white p-6 shadow-md rounded-lg mb-6 flex items-center">
         <span class="text-5xl">🎁</span>
         <div class="ml-6">
@@ -14,7 +13,6 @@
         </div>
     </div>
     {% if working_links %}
-        <!-- Working Links Section -->
         <div class="bg-white p-6 shadow-md rounded-lg mb-6">
             <h3 class="text-xl font-semibold mb-4">🚀 Active Links</h3>
             <table class="min-w-full bg-white shadow-md rounded-lg">
@@ -47,7 +45,6 @@
         </div>
     {% endif %}
     {% if not_verified_links %}
-        <!-- Not Verified Links Section -->
         <div class="bg-white p-6 shadow-md rounded-lg mb-6">
             <h3 class="text-xl font-semibold mb-4">🤗 Contributed Links</h3>
             <table class="min-w-full bg-white shadow-md rounded-lg">
@@ -80,7 +77,6 @@
         </div>
     {% endif %}
     {% if not_working_links %}
-        <!-- Not Working Links Section -->
         <div class="bg-white p-6 shadow-md rounded-lg mb-6">
             <h3 class="text-xl font-semibold mb-4">💤 Broken Links</h3>
             <table class="min-w-full bg-white shadow-md rounded-lg">
