@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load humanize %}
 {% block title %}
-    Category Items - {{ block.super }}
+    {{ category.title }} | {{ block.super }}
 {% endblock title %}
 {% block content %}
     <!-- Category Items List -->
     <div class="bg-white p-6 shadow-md rounded-lg">
-        <h2 class="text-2xl font-semibold mb-4">Books</h2>
+        <h2 class="text-2xl font-semibold mb-4">{{ category.title }}</h2>
         {% include "partials/item/table.html" with items=items %}
     </div>
     <!-- Pagination -->

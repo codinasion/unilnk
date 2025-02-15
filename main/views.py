@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Count
+from django.core.paginator import Paginator
 from .models import CategoryModel, ItemModel, LinkModel, LinkClickModel
 
 
@@ -48,13 +49,19 @@ class CategoriesView(View):
 
 class CategoryItemsView(View):
     def get(self, request, category_slug):
+        category = CategoryModel.objects.get(slug=category_slug)
         items = ItemModel.objects.filter(category__slug=category_slug)
-        return render(request, "category-items.html", {"items": items})
+        return render(request, "category-items.html", {"items": items, "category": category})
 
 
 class SearchView(View):
     def get(self, request):
-        return render(request, "search.html")
+        query = request.GET.get("q")
+        items = ItemModel.objects.filter(title__icontains=query) if query else []
+        paginator = Paginator(items, 10)  # Show 10 items per page
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, "search.html", {"items": page_obj})
 
 
 class ItemView(View):
