@@ -10,8 +10,8 @@ class CategoryApiView(APIView):
 
     def post(self, request):
         try:
-            title = request.data.get("title")
-            CategoryModel.objects.get_or_create(title__iexact=title)
+            category_title = request.data.get("category_title")
+            CategoryModel.objects.get_or_create(title__iexact=category_title, defaults={"title": category_title})
             return Response(
                 {"message": "Category created successfully"},
                 status=status.HTTP_201_CREATED,
@@ -25,19 +25,45 @@ class ItemApiView(APIView):
 
     def post(self, request):
         try:
-            title = request.data.get("title")
-            category_title = request.data.get("category")
+            category_title = request.data.get("category_title")
+            item_title = request.data.get("item_title")
             category, created = CategoryModel.objects.get_or_create(
-                title__iexact=category_title,
-                defaults={"title": category_title}
+                title__iexact=category_title, defaults={"title": category_title}
             )
             ItemModel.objects.get_or_create(
-                title=title,
+                title=item_title,
                 category=category,
-                defaults={"title": title, "category": category}
+                defaults={"title": item_title, "category": category},
             )
             return Response(
                 {"message": "Item created successfully"},
+                status=status.HTTP_201_CREATED,
+            )
+        except Exception as e:
+            return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LinkApiView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            category_title = request.data.get("category_title")
+            item_title = request.data.get("item_title")
+            link_url = request.data.get("link_url")
+            category, created = CategoryModel.objects.get_or_create(
+                title__iexact=category_title, defaults={"title": category_title}
+            )
+            item, created = ItemModel.objects.get_or_create(
+                title=item_title,
+                category=category,
+                defaults={"title": item_title, "category": category},
+            )
+            LinkModel.objects.get_or_create(
+                url=link_url, item=item, defaults={"url": link_url, "item": item}
+            )
+            return Response(
+                {"message": "Link created successfully"},
                 status=status.HTTP_201_CREATED,
             )
         except Exception as e:
