@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "rest_framework",  # Django REST Framework
     "webhooks.apps.WebhooksConfig",  # Webhooks app
     "main.apps.MainConfig",
+    "api.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [
