@@ -10,7 +10,7 @@ from .views import (
     ReportLinkWorkingView,
     ReportLinkBrokenView,
     ReportLinkSpamView,
-    PrivacyPolicyView
+    PrivacyPolicyView,
 )
 
 urlpatterns = [
