@@ -20,17 +20,14 @@ class HomeView(View):
             .annotate(total_clicks=Count("linkmodel__linkclickmodel"))
             .order_by("-total_clicks")[:5]
         )
-        print(trending_items)
 
         # most popular items, most link clicked items
         popular_items = ItemModel.objects.annotate(
             total_clicks=Count("linkmodel__linkclickmodel")
         ).order_by("-total_clicks")[:5]
-        print(popular_items)
 
         # recently added items
         recent_items = ItemModel.objects.order_by("-created_at")[:5]
-        print(recent_items)
 
         return render(
             request,
