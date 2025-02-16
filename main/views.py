@@ -18,16 +18,16 @@ class HomeView(View):
                 - timedelta(days=1)
             )
             .annotate(total_clicks=Count("linkmodel__linkclickmodel"))
-            .order_by("-total_clicks")[:5]
+            .order_by("-total_clicks")[:15]
         )
 
         # most popular items, most link clicked items
         popular_items = ItemModel.objects.annotate(
             total_clicks=Count("linkmodel__linkclickmodel")
-        ).order_by("-total_clicks")[:5]
+        ).order_by("-total_clicks")[:15]
 
         # recently added items
-        recent_items = ItemModel.objects.order_by("-created_at")[:5]
+        recent_items = ItemModel.objects.order_by("-created_at")[:15]
 
         return render(
             request,
