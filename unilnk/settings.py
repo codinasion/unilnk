@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",  # sitemaps
     "django.contrib.humanize",  # humanize
     "rest_framework",  # Django REST Framework
     "webhooks.apps.WebhooksConfig",  # Webhooks app
@@ -169,3 +171,6 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
     ],
 }
+
+# Sitemaps
+SITE_ID = 1

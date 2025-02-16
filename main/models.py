@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
 
 
 class CategoryModel(models.Model):
@@ -41,6 +42,9 @@ class ItemModel(models.Model):
 
     def get_total_clicks(self):
         return sum([link.get_total_clicks() for link in self.linkmodel_set.all()])
+
+    def get_absolute_url(self):
+        return reverse("item", kwargs={"item_slug": self.slug})
 
     class Meta:
         unique_together = ("slug", "category")
