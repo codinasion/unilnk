@@ -159,3 +159,13 @@ else:
 # Session settings
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 SESSION_SAVE_EVERY_REQUEST = True
+
+# Django REST Framework
+REST_FRAMEWORK = {
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+}
