@@ -62,7 +62,9 @@ class LinkApiView(APIView):
                 defaults={"title": item_title, "category": category},
             )
             LinkModel.objects.get_or_create(
-                url=link_url, item=item, defaults={"url": link_url, "item": item}
+                url=link_url, 
+                item=item, 
+                defaults={"url": link_url, "item": item, "status": "working"}
             )
             return Response(
                 {"message": "Link created successfully"},
