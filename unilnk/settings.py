@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",  # sitemaps
     "django.contrib.humanize",  # humanize
     "rest_framework",  # Django REST Framework
+    "rest_framework.authtoken",  # For token authentication
     "webhooks.apps.WebhooksConfig",  # Webhooks app
     "main.apps.MainConfig",
     "api.apps.ApiConfig",
