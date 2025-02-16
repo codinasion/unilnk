@@ -50,10 +50,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",  # sitemaps
     "django.contrib.humanize",  # humanize
     "rest_framework",  # Django REST Framework
     "webhooks.apps.WebhooksConfig",  # Webhooks app
     "main.apps.MainConfig",
+    "api.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [
@@ -158,3 +161,16 @@ else:
 # Session settings
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 SESSION_SAVE_EVERY_REQUEST = True
+
+# Django REST Framework
+REST_FRAMEWORK = {
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+}
+
+# Sitemaps
+SITE_ID = 1

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+    Privacy Policy | {{ block.super }}
+{% endblock title %}
+{% block content %}
+    <div class="bg-white p-6 shadow-md rounded-lg max-w-2xl mx-auto">
+        <h2 class="text-2xl font-semibold mb-4">Privacy Policy</h2>
+        <p class="mb-4">
+            At UNILNK, we respect your privacy and are committed to protecting any personal information you provide us. This Privacy Policy explains how we collect, use, and safeguard your data.
+        </p>
+        <h3 class="text-xl font-semibold mt-4">Information We Collect</h3>
+        <p class="mb-4">We collect the following data when you interact with our website:</p>
+        <ul class="list-disc pl-6 mb-4">
+            <li>IP Address (used to prevent spam in link reporting)</li>
+            <li>Basic usage statistics</li>
+            <li>Any information voluntarily submitted (e.g., when submitting a new link)</li>
+        </ul>
+        <h3 class="text-xl font-semibold mt-4">How We Use Your Information</h3>
+        <p class="mb-4">
+            We use your data to improve our services, prevent spam, and ensure a smooth user experience. Your IP address is logged for security and spam prevention purposes.
+        </p>
+        <h3 class="text-xl font-semibold mt-4">Third-Party Links</h3>
+        <p class="mb-4">
+            UNILNK provides links to third-party websites. We are not responsible for their content or privacy practices. Please review their policies before interacting with them.
+        </p>
+        <h3 class="text-xl font-semibold mt-4">Your Rights</h3>
+        <p class="mb-4">
+            You have the right to request access to any data we have collected about you and request its deletion if applicable. Contact us for any concerns.
+        </p>
+        <h3 class="text-xl font-semibold mt-4">Changes to This Policy</h3>
+        <p class="mb-4">We may update this Privacy Policy periodically. Please check this page for updates.</p>
+    </div>
+{% endblock content %}

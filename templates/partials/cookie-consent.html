@@ -1,0 +1,27 @@
+<div id="cookie-consent"
+     class="fixed bottom-4 left-4 right-4 bg-gray-900 text-white p-4 rounded-lg shadow-lg flex justify-between items-center">
+    <p class="text-sm">
+        This site uses your IP address to prevent spam in link reporting. By continuing to use this site, you agree to our
+        <a href="{% url "privacy_policy" %}"
+           class="hover:underline text-blue-400">Privacy Policy</a>.
+    </p>
+    <button id="accept-cookie"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Got it</button>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const consentBanner = document.getElementById("cookie-consent");
+        const acceptButton = document.getElementById("accept-cookie");
+
+        if (localStorage.getItem("cookieConsent") === "true") {
+            consentBanner.style.display = "none";
+        } else {
+            consentBanner.style.display = "flex";
+        }
+
+        acceptButton.addEventListener("click", function () {
+            localStorage.setItem("cookieConsent", "true");
+            consentBanner.style.display = "none";
+        });
+    });
+</script>

@@ -2,7 +2,7 @@ from datetime import timedelta
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.core.paginator import Paginator
 from django.http import HttpResponseBadRequest
 from .utils import get_client_ip
@@ -20,17 +20,14 @@ class HomeView(View):
             .annotate(total_clicks=Count("linkmodel__linkclickmodel"))
             .order_by("-total_clicks")[:5]
         )
-        print(trending_items)
 
         # most popular items, most link clicked items
         popular_items = ItemModel.objects.annotate(
             total_clicks=Count("linkmodel__linkclickmodel")
         ).order_by("-total_clicks")[:5]
-        print(popular_items)
 
         # recently added items
         recent_items = ItemModel.objects.order_by("-created_at")[:5]
-        print(recent_items)
 
         return render(
             request,
@@ -79,17 +76,53 @@ class ItemView(View):
         working_links = (
             item.linkmodel_set.filter(status="working")
             .annotate(total_clicks=Count("linkclickmodel"))
-            .order_by("-total_clicks")
+            .annotate(
+                working_count=Count(
+                    "linkactionmodel", filter=Q(linkactionmodel__action="working")
+                )
+            )
+            .exclude(
+                id__in=[
+                    link.id
+                    for link in item.linkmodel_set.all()
+                    if link.spam_count() >= 50
+                ]
+            )
+            .order_by("-working_count", "-total_clicks")
         )
         not_verified_links = (
             item.linkmodel_set.filter(status="not_verified")
             .annotate(total_clicks=Count("linkclickmodel"))
-            .order_by("-total_clicks")
+            .annotate(
+                working_count=Count(
+                    "linkactionmodel", filter=Q(linkactionmodel__action="working")
+                )
+            )
+            .exclude(
+                id__in=[
+                    link.id
+                    for link in item.linkmodel_set.all()
+                    if link.spam_count() >= 50
+                ]
+            )
+            .order_by("-working_count", "-total_clicks")
         )
         not_working_links = (
             item.linkmodel_set.filter(status="not_working")
             .annotate(total_clicks=Count("linkclickmodel"))
-            .order_by("-total_clicks")
+            .annotate(
+                working_count=Count(
+                    "linkactionmodel", filter=Q(linkactionmodel__action="working")
+                )
+            )
+            .exclude(
+                id__in=[
+                    link.id
+                    for link in item.linkmodel_set.all()
+                    if link.spam_count() >= 50
+                ]
+            )
+            .order_by("-working_count", "-total_clicks")
         )
         return render(
             request,
@@ -101,11 +134,6 @@ class ItemView(View):
                 "not_working_links": not_working_links,
             },
         )
-
-
-class NewItemView(View):
-    def get(self, request):
-        return render(request, "new-item.html")
 
 
 class LinkView(View):
@@ -159,3 +187,8 @@ class ReportLinkSpamView(View):
             link=link, ip_address=ip_address, action="spam"
         )
         return redirect(request.META.get("HTTP_REFERER", "home"))
+
+
+class PrivacyPolicyView(View):
+    def get(self, request):
+        return render(request, "privacy-policy.html")
