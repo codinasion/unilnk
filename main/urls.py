@@ -54,12 +54,12 @@ urlpatterns = [
     # path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path(
         "sitemap.xml",
-        cache_page(86400)(sitemaps_views.index),
+        cache_page(600)(sitemaps_views.index),
         {"sitemaps": sitemaps, "sitemap_url_name": "sitemaps"},
     ),
     path(
         "sitemap-<section>.xml",
-        cache_page(86400)(sitemaps_views.sitemap),
+        cache_page(600)(sitemaps_views.sitemap),
         {"sitemaps": sitemaps},
         name="sitemaps",
     ),
