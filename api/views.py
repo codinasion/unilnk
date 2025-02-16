@@ -18,3 +18,27 @@ class CategoryApiView(APIView):
             )
         except Exception as e:
             return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ItemApiView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            title = request.data.get("title")
+            category_title = request.data.get("category")
+            category, created = CategoryModel.objects.get_or_create(
+                title__iexact=category_title,
+                defaults={"title": category_title}
+            )
+            ItemModel.objects.get_or_create(
+                title=title,
+                category=category,
+                defaults={"title": title, "category": category}
+            )
+            return Response(
+                {"message": "Item created successfully"},
+                status=status.HTTP_201_CREATED,
+            )
+        except Exception as e:
+            return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
