@@ -103,9 +103,6 @@ class ItemView(View):
         )
 
 
-class NewItemView(View):
-    def get(self, request):
-        return render(request, "new-item.html")
 
 
 class LinkView(View):

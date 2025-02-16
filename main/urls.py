@@ -5,7 +5,6 @@ from .views import (
     SearchView,
     CategoryItemsView,
     ItemView,
-    NewItemView,
     LinkView,
     SubmitLinkView,
     ReportLinkWorkingView,
@@ -23,7 +22,6 @@ urlpatterns = [
         name="category_items",
     ),
     path("item/<slug:item_slug>/", ItemView.as_view(), name="item"),
-    path("new-item/", NewItemView.as_view(), name="new_item"),
     path("link/<int:link_id>/", LinkView.as_view(), name="link"),
     path("link/", SubmitLinkView.as_view(), name="submit_link"),
     path(
