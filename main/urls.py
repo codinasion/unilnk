@@ -10,6 +10,7 @@ from .views import (
     ReportLinkWorkingView,
     ReportLinkBrokenView,
     ReportLinkSpamView,
+    PrivacyPolicyView
 )
 
 urlpatterns = [
@@ -39,4 +40,5 @@ urlpatterns = [
         ReportLinkSpamView.as_view(),
         name="report_link_spam",
     ),
+    path("privacy-policy/", PrivacyPolicyView.as_view(), name="privacy_policy"),
 ]

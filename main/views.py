@@ -159,3 +159,8 @@ class ReportLinkSpamView(View):
             link=link, ip_address=ip_address, action="spam"
         )
         return redirect(request.META.get("HTTP_REFERER", "home"))
+
+
+class PrivacyPolicyView(View):
+    def get(self, request):
+        return render(request, "privacy-policy.html")
