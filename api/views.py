@@ -11,7 +11,9 @@ class CategoryApiView(APIView):
     def post(self, request):
         try:
             category_title = request.data.get("category_title")
-            CategoryModel.objects.get_or_create(title__iexact=category_title, defaults={"title": category_title})
+            CategoryModel.objects.get_or_create(
+                title__iexact=category_title, defaults={"title": category_title}
+            )
             return Response(
                 {"message": "Category created successfully"},
                 status=status.HTTP_201_CREATED,
