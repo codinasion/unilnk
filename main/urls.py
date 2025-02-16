@@ -17,9 +17,10 @@ from .views import (
 )
 from .sitemaps import ItemSitemap, StaticViewSitemap
 
+item_sitemap = ItemSitemap()
 sitemaps = {
-    'static': StaticViewSitemap,
-    'items': ItemSitemap,
+    "static": StaticViewSitemap,
+    "items": item_sitemap,
 }
 
 urlpatterns = [
